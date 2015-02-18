@@ -1,70 +1,98 @@
-<div class="container span9">
-	<div class="span9" ng-repeat="question in qa">
-		<div class="card">
-			<h2 class="card-heading page-header" ng-if="question.q_txt!=null">{{question.q_txt}}</h2>
-			<div class="card-body" ng-repeat="item in question.items">	
-				{{ item.a_txt }}
-				<div class="btn-group">
-					<button class="btn glyphicon glyphicon-remove" ng-model="item.a_val" btn-radio="0.1" uncheckable></button>
-			        <button class="btn glyphicon glyphicon-option-horizontal" ng-model="item.a_val" btn-radio="0.5" uncheckable></button>
-			        <button class="btn glyphicon glyphicon-ok" ng-model="item.a_val" btn-radio="0.9" uncheckable></button>
-				</div> 
-				{{ item.a_val }}
-			</div>
-			<br >
-		</div>
+<div flex layout="column" layout-fill>
+	<md-toolbar md-scroll-shrink>
+	<div class="md-toolbar-tools">
+	  <h1>智能诊断</h1>
 	</div>
+	</md-toolbar>
+  	<md-content flex class="container md-padding ng-scope">
+	  	<div layout-margin>
+		    <md-card ng-repeat="question in qa" class="green">
+		      <md-card-content>
+		        <h2 ng-if="question.q_txt!=null">{{question.q_txt}}</h2>
+				<h2 ng-if="question.q_txt==null">以下适合的有</h2>
+		        <p ng-repeat="item in question.items">
+		        	<md-checkbox ng-model="item.a_val" ng-true-value="0.9" ng-false-value="0.1" class="md-warn">
+					    {{ item.a_txt }}
+					</md-checkbox>
+		        </p>
+		      </md-card-content>
+		    </md-card>
+	    	<br>
+	    </div>
 
-	<div class="span9" ng-if="diagnosis.length>0">
-		<div class="card">
-			<h2 class="card-heading page-header">模拟诊断</h2>
-			<div class="card-body">		
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>可能疾病</th>
-							<th>评估</th>
-					</thead>
-					<tbody ng-repeat="dg in diagnosis">
-						<tr>
-							<td>{{ dg.d_txt }}</td>
-							<td>{{ dg.d_eval }}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<br >
-		</div>
-	</div>
+		 <div layout-margin ng-if="diagnosis.length>0">
+		    <md-card>
+		      <md-card-content>
+		        <h2>模拟诊断</h2>
+		        <table class="table table-striped">
+						<thead>
+							<tr>
+								<th>可能疾病</th>
+								<th>评估</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="dg in diagnosis">
+							<tr>
+								<td>{{ dg.d_txt }}</td>
+								<td>{{ dg.d_eval }}</td>
+							</tr>
+						</tbody>
+					</table>
+		      </md-card-content>
+		    </md-card>
+	    	<br>
+	    </div>
 
-	<div class="span9" ng-if="advices.length>0">
-		<div class="card">
-			<h2 class="card-heading page-header">推荐检查</h2>
-			<div class="card-body">		
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>检查项目</th>
-							<th>重要性</th>
-					</thead>
-					<tbody ng-repeat="ad in advices">
-						<tr>
-							<td>{{ ad.name }}</td>
-							<td>{{ ad.imp }}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<br >
-		</div>
-	</div>
+	    <div layout-margin ng-if="advices.length>0">
+		    <md-card>
+		      <md-card-content>
+		        <h2>推荐检查</h2>
+		        <table class="table table-striped">
+						<thead>
+							<tr>
+								<th>检查项目</th>
+								<th>重要性</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="ad in advices">
+							<tr>
+								<td>{{ ad.name }}</td>
+								<td>{{ ad.imp }}</td>
+							</tr>
+						</tbody>
+					</table>
+		      </md-card-content>
+		    </md-card>
+	    	<br>
+	    </div>	 
 
-	<br >
-	<div class="row-fluid">
-		<button type="button" class="btn btn-default" ng-click="proceed('auto')">自动</button>
-		<button type="button" class="btn btn-success" ng-click="proceed('more')">继续提问</button>
-		<button type="button" class="btn btn-primary" ng-click="proceed('diagnosis')">模拟诊断</button>
-		<button type="button" class="btn btn-info" ng-click="proceed('advice')">检查建议</button>
-	</div>
-	<br >
+		<!--<div layout-margin class="row" >
+			<md-button class="md-fab md-primary" aria-label="auto" ng-click="proceed('auto')">
+				<span class="glyphicon glyphicon-play"></span>
+				<md-tooltip>自动</md-tooltip>
+			</md-button>
+			<md-button class="md-fab md-accent" aria-label="more" ng-click="proceed('more')">
+				<span class="glyphicon glyphicon-forward"></span>
+				<md-tooltip>继续提问</md-tooltip>
+			</md-button>
+			<md-button class="md-fab md-warn" aria-label="diagnosis" ng-click="proceed('diagnosis')">
+				<span class="glyphicon glyphicon-filter"></span>
+				<md-tooltip>模拟诊断</md-tooltip>
+			</md-button>
+			<md-button class="md-fab md-warn" aria-label="advice" ng-click="proceed('advice')">
+				<span class="glyphicon glyphicon-erase"></span>
+				<md-tooltip>检查建议</md-tooltip>
+			</md-button>
+		</div>
+		<br >-->
+	</md-content>
+
+<nav mfb-menu position="br" effect="fountain" toggling-method="hover" label="自动" 
+        active-icon="glyphicon glyphicon-ok" resting-icon="glyphicon glyphicon-ok">
+  <a mfb-button icon="glyphicon glyphicon-play" label="自动" ng-click="proceed('auto')"></a>
+  <a mfb-button icon="glyphicon glyphicon-forward" label="继续提问" ng-click="proceed('more')"></a>
+  <a mfb-button icon="glyphicon glyphicon-filter" label="模拟诊断" ng-click="proceed('diagnosis')"></a>
+  <a mfb-button icon="glyphicon glyphicon-erase" label="检查建议" ng-click="proceed('advice')"></a>
+</nav>
+
 </div>

@@ -1,4 +1,4 @@
-app.controller('MedicalAsk', function ($scope, $http) {
+app.controller('MedicalAsk', function ($scope, $http,  $timeout, cfpLoadingBar) {
 	
 	init();
 
@@ -13,6 +13,7 @@ app.controller('MedicalAsk', function ($scope, $http) {
 		$scope.qa.map(function(x) {
 			var it = [];
 			x.items.map(function(y) {
+
 				it.push({a_id: y.a_id, a_val: y.a_val});
 			});
 			ans.push({q_id: x.q_id, items: it});
@@ -40,5 +41,4 @@ app.controller('MedicalAsk', function ($scope, $http) {
 		
 		$http.post('http://localhost:9000/medical/ask', query).success(onResponse);
 	};
-
 });

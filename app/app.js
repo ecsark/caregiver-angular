@@ -1,6 +1,6 @@
 
-var app = angular.module('caregiver', ['ngRoute', 'ui.bootstrap']);
-
+var app = angular.module('caregiver', ['ngRoute', 'angular-loading-bar', 'ngAnimate', 'ngMaterial', 'ng-mfb']);
+//, 'ui.bootstrap'
 //This configures the routes and associates each route with a view and a controller
 app.config(function ($routeProvider) {
     $routeProvider
@@ -13,6 +13,7 @@ app.config(function ($routeProvider) {
         .otherwise({ redirectTo: '/ask' });
 });
 
-
-
-
+app.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .backgroundPalette('grey');
+});
