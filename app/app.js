@@ -1,5 +1,5 @@
 
-var app = angular.module('caregiver', ['ngRoute', 'angular-loading-bar', 'ngAnimate', 'ngMaterial', 'ng-mfb']);
+var app = angular.module('caregiver', ['ngRoute', 'angular-loading-bar', 'ngMaterial', 'ng-mfb']);
 //, 'ui.bootstrap'
 //This configures the routes and associates each route with a view and a controller
 app.config(function ($routeProvider) {
